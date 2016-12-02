@@ -19,4 +19,12 @@ defmodule TaxicabTest do
     distance = "R5, L5, R5, R3" |> Taxicab.follow_directions |> Taxicab.distance_to
     assert distance == 12
   end
+
+  test "first repeated location" do
+    first_repeat = "R8, R4, R4, R8" |> Taxicab.follow_directions_until_first_repeat
+    distance = Taxicab.distance_to(first_repeat)
+    assert first_repeat.x == 4
+    assert first_repeat.y == 0
+    assert distance == 4
+  end
 end
