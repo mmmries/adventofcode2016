@@ -23,4 +23,8 @@ defmodule DirectoryTest do
 
     assert Directory.sum_real_sector_ids(str) == 1514
   end
+
+  test "it can decrypt names" do
+    assert Directory.decrypt("qzmt-zixmtkozy-ivhz", 343) == "very encrypted name"
+  end
 end
