@@ -3,7 +3,14 @@ defmodule Unjammed do
     character_grid = string_to_character_grid(input)
     occurences_by_column = character_grid |> Enum.at(0) |> Enum.map(fn(_) -> %{} end)
     count_letter_occurences(character_grid, occurences_by_column)
-    |> pick_winners_and_join
+    |> pick_winners_and_join(&List.last/1)
+  end
+
+  def by_least_common(input) do
+    character_grid = string_to_character_grid(input)
+    occurences_by_column = character_grid |> Enum.at(0) |> Enum.map(fn(_) -> %{} end)
+    count_letter_occurences(character_grid, occurences_by_column)
+    |> pick_winners_and_join(&hd/1)
   end
 
   defp count_letter_occurences([], occurences), do: occurences
@@ -14,10 +21,10 @@ defmodule Unjammed do
     count_letter_occurences(rest, occurences)
   end
 
-  defp pick_winners_and_join(counts_by_column) do
+  defp pick_winners_and_join(counts_by_column, picker_fun) do
     counts_by_column
     |> Enum.map(fn(counts) ->
-      counts |> Enum.sort_by(&( elem(&1, 1) )) |> List.last |> elem(0)
+      counts |> Enum.sort_by(&( elem(&1, 1) )) |> (picker_fun).() |> elem(0)
     end)
     |> Enum.join("")
   end
