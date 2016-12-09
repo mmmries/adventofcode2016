@@ -36,9 +36,13 @@ defmodule Screen do
   def print(screen) do
     IO.puts "   ----------    "
     screen
-    |> Enum.map(&( Enum.join(&1, "") ))
-    |> Enum.join("\n")
-    |> IO.puts
+    |> Enum.each(fn(row) ->
+      Enum.each(row, fn
+        (1) -> IO.write("#")
+        (0) -> IO.write(" ")
+      end)
+      IO.write("\n")
+    end)
   end
 
   defp transpose([[]|_]), do: []
