@@ -2,6 +2,9 @@ defmodule Vm do
   def run(instruction_str) do
     Vm.execute(Vm.init(), Vm.parse(instruction_str))
   end
+  def run(instruction_str, state) do
+    Vm.execute(state, Vm.parse(instruction_str))
+  end
 
   def init, do: %{a: 0, b: 0, c: 0, d: 0, ins: 0}
 
